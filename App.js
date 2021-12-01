@@ -8,7 +8,12 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import LoginScreen from './comps/LoginScreen'
-import HomeScreen from './comps/HomeScreen'
+import Zamow from './comps/ZamowPrzejazd'
+import Historia from './comps/HistoriaPrzejazdow'
+import Samochody from './comps/Samochody'
+import ONas from './comps/ONas'
+import Promocje from './comps/Promocje'
+import Platnosci from './comps/Platnosci'
 import Konto from './comps/Konto'
 
 import './global.js'
@@ -49,15 +54,15 @@ export default function App() {
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               size = 28
-              if(route.name === 'ZamowPrzejazd')
+              if(route.name === 'Zamow')
                 return <Ionicons name={focused ? 'navigate' : 'navigate-outline'} size={size} color="black" />
               else if(route.name === 'Login')
                 return <Ionicons name={focused ? 'log-in' : 'log-in-outline'} size={size} color="black" />
-              else if(route.name === 'HistoriaPrzejazdow')
+              else if(route.name === 'Historia')
                 return <Ionicons name={focused ? 'book' : 'book-outline'} size={size} color="black" />
               else if(route.name === 'Samochody')
                 return <Ionicons name={focused ? 'car' : 'car-outline'} size={size} color="black" />
-              else if(route.name === 'ONas')
+              else if(route.name === 'O nas')
                 return <Ionicons name={focused ? 'alert-circle' : 'alert-circle-outline'} size={size} color="black" />
               else if(route.name === 'Promocje')
                 return <Ionicons name={focused ? 'flag' : 'flag-outline'} size={size} color="black" />
@@ -70,20 +75,16 @@ export default function App() {
           })}
         >
           <Tab.Screen
-            name="ZamowPrzejazd"
-            component={ZamowPrzejazd}
+            name="Zamow"
+            component={Zamow}
           />
           <Tab.Screen
-          name="HistoriaPrzejazdow"
-          component={HistoriaPrzejazdow}
+          name="Historia"
+          component={Historia}
           />
            <Tab.Screen
           name="Samochody"
           component={Samochody}
-          />
-           <Tab.Screen
-          name="ONas"
-          component={ONas}
           />
            <Tab.Screen
           name="Promocje"
@@ -96,6 +97,10 @@ export default function App() {
            <Tab.Screen
           name="Konto"
           component={Konto}
+          />
+          <Tab.Screen
+          name="O nas"
+          component={ONas}
           />
         
         </Tab.Navigator>

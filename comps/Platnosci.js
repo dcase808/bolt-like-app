@@ -1,6 +1,6 @@
-import { List, Heading, Box, NativeBaseProvider} from 'native-base';
+import { List, Heading, Box, NativeBaseProvider, Center, Button} from 'native-base';
 import React from 'react'
-import { Text, View, Button, Center} from 'react-native'
+import { Text, View, Alert} from 'react-native'
 
 const Platnosci = () => {
 
@@ -17,7 +17,15 @@ const Platnosci = () => {
         </List>
         </Box>
             <Text>
-                dodaj Platnosci guzik
+                <Center>
+            <Button
+                    onPress={()=>{
+                        Alert.alert("Dodaj platnosc")
+                        }}
+                >
+                    Dodaj Platnosc
+                </Button>
+                </Center>
             </Text>
         </View>
         </NativeBaseProvider>

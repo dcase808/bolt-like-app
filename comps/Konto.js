@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text, View, Button, Alert} from 'react-native'
-import { NativeBaseProvider } from 'native-base'
+import { Text, View, Alert} from 'react-native'
+import { NativeBaseProvider, Button, Center } from 'native-base'
 
 
 
@@ -9,17 +9,29 @@ const Konto = () => {
     return (
         <NativeBaseProvider>
             <View>
+                <Center>
                 <Text>
-                    Nazwa Konta  {'\n'}
+                    Nazwa Konta
+                </Text>
+                </Center>
+                <Center>
                 <Button
                     onPress={()=>{
                         Alert.alert("Zmiana hasla")
                         }}
-                    style={{ width: 320, marginTop: 15 }}
                 >
                     Zmien haslo
                 </Button>
-                </Text>
+                </Center>
+                <Center>
+                <Button
+                    onPress={()=>{
+                        Alert.alert("Wyloguj")
+                        }}
+                >
+                    Wyloguj
+                </Button>
+                </Center>
             </View>
         </NativeBaseProvider>
     )
