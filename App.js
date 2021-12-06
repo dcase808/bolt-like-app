@@ -114,26 +114,26 @@ export default function App() {
     return (
       <NativeBaseProvider>
         <Center>
-        <Box safeArea p="2" py="8" w="90%" maxW="290">
-          <Center><Heading>Zaloguj się</Heading></Center>
-          <Center>
-                    <Input1 placeholder="Login" value={login} onChangeText={setLogin} />
-                    <Input1 placeholder="Haslo" hide value={pass} onChangeText={setPass} />
-                    <Button 
-                        onPress={() => {
-                            if(login === 'login' && pass === 'pass')
-                            {
-                                setIsLogged(true)
-                            }
-                            else
-                                Alert.alert("Błędne dane")
+          <Box safeArea p="2" py="8" w="90%" maxW="290">
+            <Center><Heading>Zaloguj się</Heading></Center>
+              <Center>
+                <Input1 placeholder="Login" value={login} onChangeText={setLogin} />
+                <Input1 placeholder="Haslo" hide value={pass} onChangeText={setPass} />
+                  <Button 
+                    onPress={() => {
+                      if(login === 'login' && pass === 'pass')
+                      {
+                        setIsLogged(true)
+                      }
+                      else
+                        Alert.alert("Błędne dane")
                         }}
-                        style={{ width: 320, marginTop: 15 }}    
+                      style={{ width: 320, marginTop: 15 }}    
                     >
-                        Zaloguj
-                    </Button>
-                </Center>
-        </Box>
+                    Zaloguj
+                  </Button>
+              </Center>
+          </Box>
         </Center>
       </NativeBaseProvider>
     )
