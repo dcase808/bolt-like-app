@@ -93,6 +93,7 @@ export default function App() {
     return (
       <NativeBaseProvider>
         <Center>
+
         <Box safeArea p="2" py="8" w="90%" maxW="290">
           <Center><Heading>Zaloguj się</Heading></Center>
           <Center>
@@ -101,9 +102,11 @@ export default function App() {
                     <Button 
                         onPress={() => {
                             loginFunc();
+
                         }}
-                        style={{ width: 320, marginTop: 15 }}    
+                      style={{ width: 320, marginTop: 15 }}    
                     >
+
                         Zaloguj
                     </Button>
                     <Button 
