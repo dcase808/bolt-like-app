@@ -1,36 +1,29 @@
 import React from 'react'
 import { Text, View, Alert} from 'react-native'
-import { NativeBaseProvider, Button, Center } from 'native-base'
+import { NativeBaseProvider, Button, Center, Box } from 'native-base'
 
-
-
-const Konto = () => {
+const Konto = (props) => {
 
     return (
         <NativeBaseProvider>
             <View>
                 <Center>
+                    <Box w="70%">
+                        <Center>
                 <Text>
-                    Nazwa Konta
+                    Witaj, {props.login}!
                 </Text>
-                </Center>
-                <Center>
+                
                 <Button
                     onPress={()=>{
-                        Alert.alert("Zmiana hasla")
+                        props.setIsLogged(false);
                         }}
                 >
-                    Zmien haslo
-                </Button>
-                </Center>
-                <Center>
-                <Button
-                    onPress={()=>{
-                        Alert.alert("Wyloguj")
-                        }}
-                >
+                    
                     Wyloguj
                 </Button>
+                </Center>
+                </Box>
                 </Center>
             </View>
         </NativeBaseProvider>
