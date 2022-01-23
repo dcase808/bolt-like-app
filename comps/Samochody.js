@@ -1,21 +1,61 @@
-import { List, Heading, Box, NativeBaseProvider} from 'native-base';
-import React from 'react'
-import { Text, View, Button, Center} from 'react-native'
+import { FlatList, Heading, Box, NativeBaseProvider, Center, Button, useToast} from 'native-base';
+import React, { useState, useEffect } from 'react'
+import { Text, View} from 'react-native'
+
 
 const Samochody = () => {
+
+    const [data, setData] = useState([]);
+
+    const toast = useToast();
+
+    const getCars = async () => {
+        try {
+         const response = await fetch('https://random-data-api.com/api/vehicle/random_vehicle?size=20');
+         const json = await response.json();
+            if(data.length > 0)
+            {
+                setData([]);
+            }
+            for (let i = 0; i < json.length; i++)
+            {
+                setData(data => [...data, eval(JSON.stringify(json[i].make_and_model))]);
+            }
+            toast.show({
+                description: "Zaktualizowano listę samochodów",
+            })
+       } catch (error) {
+         console.error(error);
+       }
+     }
+    useEffect(() => {
+        getCars();
+    }, []);
+   
 
     return (
         <NativeBaseProvider>
         <View>
+            <Center>
              <Box w="70%">
+                 <Center>
         <Heading fontSize={24}>Dostępne samochody</Heading>
-        <List spacing={2} my={2}>
-            <List.Item>Samochód 1</List.Item>
-            <List.Item>Samochód 2</List.Item>
-            <List.Item>Samochód 3</List.Item>
-            <List.Item>Samochód 4</List.Item>
-        </List>
-        </Box>
+        <FlatList 
+              data={data}
+              renderItem={({ item }) => (
+                <Text>{item}</Text>
+              )}/>
+
+        <Button
+                    onPress={()=>{
+                        getCars();
+                        }}
+                >
+                    Zaktualizuj listę dostępnych samochodów
+            </Button>
+            </Center>
+            </Box>
+        </Center>
         </View>
         </NativeBaseProvider>
     )
