@@ -2,7 +2,7 @@ import { NativeBaseProvider, Button, Input, FlatList, useToast, Box, Center } fr
 import React, {useState, useEffect} from 'react'
 import { Text, View, Alert } from 'react-native'
 import * as Location from 'expo-location'
- 
+
 export const Input1 = ({ placeholder, hide, onChangeText, value }) => {
     return (
       <Input
@@ -18,16 +18,16 @@ export const Input1 = ({ placeholder, hide, onChangeText, value }) => {
       />
     )
   }
- 
- 
+
+
 const ZamowPrzejazd = () => {
   const [tempLocation, setTempLocation] = useState(null);
   const [location, setLocation] = useState("");
   const [rides, setRides] = useState([]);
   const [destination, setDestination] = useState("");
- 
+
   const toast = useToast();
- 
+
   useEffect(() => 
   {
     (async () => {
@@ -38,10 +38,10 @@ const ZamowPrzejazd = () => {
         })
         return;
       }
- 
+
       let location = await Location.getCurrentPositionAsync({});
       let { coords } = location;
- 
+
       if (location) 
       {
         const { latitude, longitude } = coords;
@@ -52,11 +52,11 @@ const ZamowPrzejazd = () => {
         setTempLocation(response[0].city + ", " + response[0].street + " " + response[0].name);
         console.log(response[0].city + ", " + response[0].street + " " + response[0].name);
       }
- 
- 
+
+
     })();
   }, []);
- 
+
   const getAddress = () =>
   {
     if (tempLocation === null)
@@ -85,23 +85,15 @@ const ZamowPrzejazd = () => {
     else
     {
       let tempRides = rides;
-      //tempRides.push(location +  "\t->\t" + destination);
-      let id = rides.length;
-      tempRides.push({id, location, destination})
-      
+      tempRides.push(location +  "\t->\t" + destination);
       setRides(tempRides);
-      console.log(rides[rides.length - 1]);
-      //console.log(rides);
+      console.log("Location: " + location);
       toast.show({
         description: "Zamówiono przejazd",
         placement: "bottom",
       })
-      //console.log(rides);
+      console.log(rides);
     }
-  }
-  const cancelRide = (id) =>
-  {
-    setRides(rides.filter(item => item.id !== id))
   }
     return (
         <NativeBaseProvider>
@@ -120,7 +112,7 @@ const ZamowPrzejazd = () => {
             </Button>
             <Box>Podaj adres docelowy</Box>
             <Input1 value={destination} placeholder="Adres" onChangeText={setDestination}/>
- 
+
             <Button
                     onPress={()=>{
                         orderRide();
@@ -128,28 +120,12 @@ const ZamowPrzejazd = () => {
                 >
                     Zamów przejazd
             </Button>
-            <Button
-                    onPress={()=>{
-                        cancelRide(0);
-                    }}
-                >
-                    rides test
-            </Button>
             <Text>Lista zamówionych przejazdów</Text>
-            <FlatList w="100%"
-                    data={rides}
-                    renderItem={({ item }) => (
-                        <Text>Z: {item.location}, Do: {item.destination},                         
-                        <Button w="5%"
-                        onPress={()=>{
-                            cancelRide(item.id);
-                        }}
-                        >
-                        Zakończ
-                        </Button>
-                </Text>
- 
-                )}/>
+            <FlatList spacing={2} my={2} 
+              data={rides}
+              renderItem={({ item }) => (
+                <Text>{item}</Text>
+              )}/>
               </Center>
               </Box>
               </Center>
@@ -157,5 +133,5 @@ const ZamowPrzejazd = () => {
         </NativeBaseProvider>
     )
 }
- 
+
 export default ZamowPrzejazd
