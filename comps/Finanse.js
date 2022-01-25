@@ -20,14 +20,14 @@ const Finanse = () => {
             tabBarIcon: ({ focused, color, size }) => {
               size = 28
               if(route.name === 'Promocje')
-                return <Ionicons name={focused ? 'flag' : 'flag-outline'} size={size} color="black" />
+                return <Ionicons name={focused ? 'flag' : 'flag-outline'} size={size} color={focused ? "white":"black"} />
               else if(route.name === 'Płatności')
-                return <Ionicons name={focused ? 'card' : 'card-outline'} size={size} color="black" />
+                return <Ionicons name={focused ? 'card' : 'card-outline'} size={size} color={focused ? "white":"black"} />
             }
           })}
         >
-            <Tab.Screen name="Płatności" component={Platnosci}/>
-            <Tab.Screen name="Promocje" component={Promocje}/>
+            <Tab.Screen options={{ tabBarActiveTintColor: 'white', tabBarActiveBackgroundColor: '#3489eb',tabBarInactiveTintColor: 'black'}}  name="Płatności" component={Platnosci}/>
+            <Tab.Screen options={{ tabBarActiveTintColor: 'white', tabBarActiveBackgroundColor: '#3489eb',tabBarInactiveTintColor: 'black'}}  name="Promocje" component={Promocje}/>
         </Tab.Navigator>
         </NativeBaseProvider>
     )
