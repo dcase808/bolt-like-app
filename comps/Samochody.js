@@ -50,6 +50,7 @@ const Samochody = () => {
                     onPress={()=>{
                         getCars();
                         }}
+                    style={{ backgroundColor: '#3489eb', width: 320, margintop: 15}}
                 >
                     Zaktualizuj listę dostępnych samochodów
             </Button>
