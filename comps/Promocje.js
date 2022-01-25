@@ -1,5 +1,5 @@
 import { NativeBaseProvider, Button, Input, FlatList, useToast, Box, Center, Heading, Modal, FormControl } from 'native-base'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, View, Alert} from 'react-native'
 
 export const Input1 = ({ placeholder, hide, onChangeText, value }) => {
@@ -22,29 +22,71 @@ const Promocje = () => {
 
     const toast = useToast();
 
-    const checkCode = () =>
-    {
-        if(code === "")
-        {
+    const checkCode = async () => {
+        try {
+         const response = await fetch('http://192.168.0.19:3000/kody_rabatowe');
+         const json = await response.json();
+            for (let i = 0; i < json.length; i++)
+            {
+                if (code === "")
+                {
+                    toast.show({
+                        description: "Wprowadź kod rabatowy",
+                    })
+                    return;
+                }                
+                let kod = eval(JSON.stringify(json[i].kod))
+                let opis = eval(JSON.stringify(json[i].opis))
+                if(code === kod)
+                {
+                    setData(data => [...data, opis])
+                    toast.show({
+                        description: "Dodano kod rabatowy",
+                    });
+                    setShowModal(false);
+                    return;
+                }
+                else
+                {
+                    toast.show({
+                        description: "Nieprawidłowy kod rabatowy",
+                    });
+                }
+            }
+       } catch (error) {
+         console.error(error);
+         toast.show({
+            description: "Błąd w dodawaniu kodu rabatowego",
+        })
+       }
+     }
+
+    const getRabates = async () => {
+        try {
+         const response = await fetch('http://192.168.0.19:3000/znizki');
+         const json = await response.json();
+            if(data.length > 0)
+            {
+                setData([]);
+            }
+            for (let i = 0; i < json.length; i++)
+            {
+                let desc = eval(JSON.stringify(json[i].opis))
+                setData(data => [...data, desc]);
+            }
             toast.show({
-                description: "Wprowadź kod rabatowy",
+                description: "Pobrano listę rabatów",
             })
-        }
-        else if(code === "rabat25")
-        {
-            toast.show({
-                description: "Dodano kod rabatowy",
-            });
-            setData(data => [...data, "Rabat 25% na następny przejazd"]);
-            setShowModal(false);
-        }
-        else
-        {
-            toast.show({
-                description: "Nieprawidłowy kod rabatowy",
-            });
-        }
-    }
+       } catch (error) {
+         console.error(error);
+         toast.show({
+            description: "Błąd w pobieraniu listy rabatów",
+        })
+       }
+     }
+     useEffect(() => {
+        getRabates();
+    }, []);
 
     return (
         <NativeBaseProvider>
@@ -60,6 +102,7 @@ const Promocje = () => {
                     renderItem={({ item }) => (
                         <Text>{item}</Text>
                 )}/>
+                <Text>{'\n'}</Text>
                 <Button
                     onPress={() => 
                         setShowModal(true)}
