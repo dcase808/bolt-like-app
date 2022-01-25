@@ -1,6 +1,6 @@
 import { NativeBaseProvider, Button, Input, FlatList, useToast, Box, Center } from 'native-base'
 import React, {useState, useEffect} from 'react'
-import { Text, View, Alert } from 'react-native'
+import { Text, View, Alert, ScrollView } from 'react-native'
 import * as Location from 'expo-location'
  
 export const Input1 = ({ placeholder, hide, onChangeText, value }) => {
@@ -11,10 +11,7 @@ export const Input1 = ({ placeholder, hide, onChangeText, value }) => {
         placeholder={placeholder}
         onChangeText={onChangeText}
         value={value}
-        w={{
-          base: "75%",
-          md: "25%",
-        }}
+        style={{ width: 320, margintop: 15}}
       />
     )
   }
@@ -115,6 +112,7 @@ const ZamowPrzejazd = () => {
                     onPress={()=>{
                         getAddress();
                         }}
+                    style={{backgroundColor: '#3489eb', width: 320, margintop: 15}}
                 >
                     Pobierz aktualną lokalizację
             </Button>
@@ -125,31 +123,50 @@ const ZamowPrzejazd = () => {
                     onPress={()=>{
                         orderRide();
                     }}
+                    style={{backgroundColor: '#3489eb', width: 320, margintop: 15}}
                 >
                     Zamów przejazd
+                    
             </Button>
-            <Button
-                    onPress={()=>{
-                        cancelRide(0);
-                    }}
-                >
-                    rides test
-            </Button>
+
             <Text>Lista zamówionych przejazdów</Text>
-            <FlatList w="100%"
-                    data={rides}
-                    renderItem={({ item }) => (
-                        <Text>Z: {item.location}, Do: {item.destination},                         
-                        <Button w="5%"
-                        onPress={()=>{
-                            cancelRide(item.id);
-                        }}
-                        >
-                        Zakończ
-                        </Button>
-                </Text>
- 
-                )}/>
+            {/* <ScrollView>
+              {
+                rides.map((el, i) =>
+                  <View key={`ride-${i}`}>
+                    <Text>Z: {el.location}, Do: {item.destination}</Text>
+                    <Button onPress={() => { cancelRide(el.id) }}>Zakończ</Button>
+                  </View>
+                )
+              }
+
+
+            </ScrollView> */}
+            
+            <FlatList
+              data={rides}
+              renderItem={({ item }) => (
+              <View style={{ height: 60, flexDirection: 'row' }}>
+                <View >
+                  <Text>Z: {item.location}</Text>                        
+                  <Text>Do: {item.destination}</Text>
+                </View>
+                <Button 
+                  style={{ 
+                    height: 45,
+                    width: 45,
+                    marginLeft: 10,
+                    backgroundColor: '#3489eb'
+                  }}
+                  fontSize={'9xl'}
+                  onPress={()=>{
+                      cancelRide(item.id);
+                  }}
+                >
+                  ✔
+                </Button>
+                </View>
+              )}/>
               </Center>
               </Box>
               </Center>
