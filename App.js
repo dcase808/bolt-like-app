@@ -14,7 +14,6 @@ import Ustawienia from './comps/Ustawienia'
 import './global.js'
 
 
-
 const Drawer = createDrawerNavigator()
 
 export const Input1 = ({ placeholder, hide, onChangeText, value }) => {
@@ -66,24 +65,46 @@ export default function App() {
       })
      }
    }
-  const registerFunc = () =>
-  {
-    if(pass.length > 5)
+
+
+  const registerFunc = async () => {
+    if(login === "" || pass === "")
     {
-      setLoginList(loginList => [...loginList, login + " " + pass])
       toast.show({
-        description: "Zarejestrowano, zaloguj się używając swoich danych",
+        description: "Podaj login oraz hasło",
       })
-      setLogin("")
-      setPass("")
+      return;
     }
     else
     {
+      try{
+        const response = await fetch('http://192.168.0.19:3000/konta');
+        const json2 = await response.json();
+        let id = json2.length + 1;
+        const response2 = await fetch('http://192.168.0.19:3000/konta', {  
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: id,
+            login: login,
+            haslo: pass
+          })
+        })
+    } catch (error) {
+      console.error(error);
       toast.show({
-        description: "Wprowadź co najmniej 5 znakowe hasło",
-      })
+        description: "Błąd podczas tworzenia konta",
+    })
     }
-
+    toast.show({
+      description: "Zarejestrowano, zaloguj się używając swoich danych",
+    })
+    setPass("");
+    setLogin("");
+  }
   }
 
   const UstawieniaWithProps = props => (
@@ -119,7 +140,7 @@ export default function App() {
                         onPress={() => {
                             loginFunc();
                         }}
-                        style={{ width: 320, marginTop: 15 }}    
+                        style={{backgroundColor: '#3489eb', width: 320, margintop: 15}}  
                     >
                         Zaloguj
                     </Button>
@@ -127,7 +148,7 @@ export default function App() {
                         onPress={() => {
                             registerFunc();
                         }}
-                        style={{ width: 320, marginTop: 15 }}    
+                        style={{backgroundColor: '#3489eb', width: 320, margintop: 15}}  
                     >
                         Zarejestruj
                     </Button>
