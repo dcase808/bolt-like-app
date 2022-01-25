@@ -26,6 +26,9 @@ const Samochody = () => {
             })
        } catch (error) {
          console.error(error);
+         toast.show({
+            description: "Błąd w pobieraniu listy samochodów",
+        })
        }
      }
     useEffect(() => {
