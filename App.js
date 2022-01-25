@@ -25,10 +25,7 @@ export const Input1 = ({ placeholder, hide, onChangeText, value }) => {
       placeholder={placeholder}
       onChangeText={onChangeText}
       value={value}
-      w={{
-        base: "75%",
-        md: "25%",
-      }}
+      style={{ width: 320, margintop: 15}}
     />
   )
 }
@@ -80,10 +77,11 @@ export default function App() {
 
       <NavigationContainer> 
         <Drawer.Navigator initialRouteName="Przejazdy">
-          <Drawer.Screen name="Przejazdy" component={Przejazdy}/>
-          <Drawer.Screen name="Finanse" component={Finanse}/>
-          <Drawer.Screen name="Ustawienia" component={() => <Ustawienia setIsLogged={setIsLogged} login={login}/> } />
+          <Drawer.Screen options={{ headerStyle: {backgroundColor: '#3489eb'}, headerTintColor:'white', }} name="Przejazdy" component={Przejazdy}/>
+          <Drawer.Screen options={{ headerStyle: {backgroundColor: '#3489eb'}, headerTintColor:'white', }} name="Finanse" component={Finanse}/>
+          <Drawer.Screen options={{ headerStyle: {backgroundColor: '#3489eb'}, headerTintColor:'white', }} name="Ustawienia" component={() => <Ustawienia setIsLogged={setIsLogged} login={login}/> } />
         </Drawer.Navigator> 
+          
         </NavigationContainer> 
       
     );
@@ -104,7 +102,7 @@ export default function App() {
                             loginFunc();
 
                         }}
-                      style={{ width: 320, marginTop: 15 }}    
+                      style={{backgroundColor: '#3489eb', width: 320, marginTop: 15 }}    
                     >
 
                         Zaloguj
@@ -113,7 +111,7 @@ export default function App() {
                         onPress={() => {
                             registerFunc();
                         }}
-                        style={{ width: 320, marginTop: 15 }}    
+                        style={{backgroundColor: '#3489eb', width: 320, marginTop: 15 }}    
                     >
                         Zarejestruj
                     </Button>
