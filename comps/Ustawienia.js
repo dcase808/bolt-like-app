@@ -24,9 +24,9 @@ const Ustawienia = (prop) => {
           tabBarIcon: ({ focused, color, size }) => {
             size = 28
             if(route.name === 'Konto')
-              return <Ionicons name={focused ? 'person' : 'person-outline'} size={size} color="black" />
+              return <Ionicons name={focused ? 'person' : 'person-outline'} size={size} color={focused ? "white":"black"} />
             else if(route.name === 'O nas')
-              return <Ionicons name={focused ? 'alert-circle' : 'alert-circle-outline'} size={size} color="black" />
+              return <Ionicons name={focused ? 'alert-circle' : 'alert-circle-outline'} size={size} color={focused ? "white":"black"} />
               
           }
         })}
