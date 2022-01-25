@@ -63,6 +63,7 @@ const Promocje = () => {
                 <Button
                     onPress={() => 
                         setShowModal(true)}
+                        style={{backgroundColor:'#3489eb', width: 320, margintop: 15}}
                 >
                 Dodaj promocję
                 </Button>
@@ -89,6 +90,7 @@ const Promocje = () => {
                             Anuluj
                         </Button>
                         <Button
+                        style={{backgroundColor:'#3489eb'}}
                             onPress={() => {
                             checkCode()
                             }}
