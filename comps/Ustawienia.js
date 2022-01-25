@@ -27,8 +27,8 @@ const Ustawienia = (props) => {
             }
           })}
         >
-            <Tab.Screen name="Konto" component={() => <Konto setIsLogged={props.setIsLogged} login={props.login} /> } />
-            <Tab.Screen name="O nas" component={ONas}/>
+            <Tab.Screen options={{ tabBarActiveTintColor: 'white', tabBarActiveBackgroundColor: '#3489eb',tabBarInactiveTintColor: 'black'}} name="Konto" component={() => <Konto setIsLogged={props.setIsLogged} login={props.login} /> } />
+            <Tab.Screen options={{ tabBarActiveTintColor: 'white', tabBarActiveBackgroundColor: '#3489eb',tabBarInactiveTintColor: 'black'}} name="O nas" component={ONas}/>
             
         </Tab.Navigator>
         </NativeBaseProvider>
