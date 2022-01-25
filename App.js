@@ -35,22 +35,37 @@ export default function App() {
   const [login, setLogin] = useState('')
   const [pass, setPass] = useState('')
   const [isLogged, setIsLogged] = useState(true)
-  const [loginList, setLoginList] = useState(["login pass"])
 
   const toast = useToast();
 
-  const loginFunc = () =>
-  {
-      if(loginList.includes(login + " " + pass))
-      {
-          setIsLogged(true)
-      }
-      else
-          toast.show({
-            description: "Błędne dane logowania, spróbuj ponowanie",
-          })
-    }
-  
+    const loginFunc = async () => {
+      try {
+       const response = await fetch('http://192.168.0.19:3000/konta');
+       const json = await response.json();
+          for (let i = 0; i < json.length; i++)
+          {
+              let loginJson = eval(JSON.stringify(json[i].login));
+              let passJson = eval(JSON.stringify(json[i].haslo));
+              if(login === loginJson && pass === passJson)
+              {
+                setIsLogged(true);
+              }
+              else
+              {
+                toast.show({
+                  description: "Błędne dane logowania, spróbuj ponowanie",
+                })
+                console.log("Login wpisany: " + login + " Login w bazie" + loginJson)
+                console.log("Haslo wpisane: " + pass + " haslo w bazie" + passJson)
+              }
+          }
+     } catch (error) {
+       console.error(error);
+       toast.show({
+          description: "Błąd w komunikacji z serwerem, spróbuj ponownie później",
+      })
+     }
+   }
   const registerFunc = () =>
   {
     if(pass.length > 5)
@@ -71,6 +86,11 @@ export default function App() {
 
   }
 
+  const UstawieniaWithProps = props => (
+    <Ustawienia setIsLogged={setIsLogged} login={login}/>
+  );
+  
+
   if(isLogged)
   {
     return (
@@ -79,9 +99,8 @@ export default function App() {
         <Drawer.Navigator initialRouteName="Przejazdy">
           <Drawer.Screen options={{ headerStyle: {backgroundColor: '#3489eb'}, headerTintColor:'white', }} name="Przejazdy" component={Przejazdy}/>
           <Drawer.Screen options={{ headerStyle: {backgroundColor: '#3489eb'}, headerTintColor:'white', }} name="Finanse" component={Finanse}/>
-          <Drawer.Screen options={{ headerStyle: {backgroundColor: '#3489eb'}, headerTintColor:'white', }} name="Ustawienia" component={() => <Ustawienia setIsLogged={setIsLogged} login={login}/> } />
+          <Drawer.Screen options={{ headerStyle: {backgroundColor: '#3489eb'}, headerTintColor:'white', }} name="Ustawienia" component={UstawieniaWithProps} />
         </Drawer.Navigator> 
-          
         </NavigationContainer> 
       
     );
@@ -91,7 +110,6 @@ export default function App() {
     return (
       <NativeBaseProvider>
         <Center>
-
         <Box safeArea p="2" py="8" w="90%" maxW="290">
           <Center><Heading>Zaloguj się</Heading></Center>
           <Center>
@@ -100,18 +118,16 @@ export default function App() {
                     <Button 
                         onPress={() => {
                             loginFunc();
-
                         }}
-                      style={{backgroundColor: '#3489eb', width: 320, marginTop: 15 }}    
+                        style={{ width: 320, marginTop: 15 }}    
                     >
-
                         Zaloguj
                     </Button>
                     <Button 
                         onPress={() => {
                             registerFunc();
                         }}
-                        style={{backgroundColor: '#3489eb', width: 320, marginTop: 15 }}    
+                        style={{ width: 320, marginTop: 15 }}    
                     >
                         Zarejestruj
                     </Button>
