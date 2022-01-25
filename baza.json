@@ -1,0 +1,48 @@
+{
+  "konta": [
+    {
+      "id": 1,
+      "login": "login",
+      "haslo": "pass"
+    },
+    {
+      "id": 2,
+      "login": "login2",
+      "haslo": "pass2"
+    }
+  ],
+  "przejazdy": [],
+  "historia": [
+    {
+      "id": 1,
+      "location": "Slaska 10",
+      "destination": "PSK"
+    }
+  ],
+  "znizki": [
+    {
+      "id": 1,
+      "rabat": 0.25,
+      "opis": "Zniżka 25% na następny przejazd"
+    },
+    {
+      "id": 2,
+      "rabat": 0.5,
+      "opis": "Zniżka 50% na następny przejazd"
+    }
+  ],
+  "kody_rabatowe": [
+    {
+      "id": 1,
+      "rabat": 0.25,
+      "opis": "Zniżka 25% na następny przejazd",
+      "kod": "rabat25"
+    },
+    {
+      "id": 2,
+      "rabat": 0.5,
+      "opis": "Zniżka 50% na następny przejazd",
+      "kod": "rabat50"
+    }
+  ]
+}
