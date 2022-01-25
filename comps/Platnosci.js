@@ -7,6 +7,7 @@ const Platnosci = () => {
     return (
         <NativeBaseProvider>
         <View>
+            
              <Box w="70%">
         <Heading fontSize={24}>Aktualne Płatności</Heading>
         <List spacing={2} my={2}>
@@ -22,8 +23,9 @@ const Platnosci = () => {
                     onPress={()=>{
                         Alert.alert("Dodaj platnosc")
                         }}
+                    style={{ backgroundColor: '#3489eb', width: 320, margintop: 15}}
                 >
-                    Dodaj Platnosc
+                    Dodaj Platność
                 </Button>
                 </Center>
             </Text>
