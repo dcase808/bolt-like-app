@@ -18,6 +18,7 @@ const Konto = (props) => {
                     onPress={()=>{
                         props.setIsLogged(false);
                         }}
+                        style={{backgroundColor:'#3489eb', width: 320, margintop: 15}}
                 >
                     
                     Wyloguj
